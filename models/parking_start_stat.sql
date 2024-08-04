@@ -2,7 +2,7 @@ select
     st_transform(hex.geom, 4326) as geom,
     count(*) as trips
 from
-    dbt_ashishkov.trips_geom as t
+    {{ ref("trips_geom") }} as t
 cross join
     st_hexagongrid(500, st_transform(t.start_point, 3857)) as hex
 where
