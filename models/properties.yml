@@ -1,3 +1,13 @@
+sources:
+  - name: "scooters_raw"
+    description: "Raw data provided by scooters service"
+    loader: "https://t.me/inzhenerka_dbt_bot"
+    tables:
+      - name: "trips"
+        description: "Scooter trips"
+      - name: "users"
+        description: "Users of scooter service"
+
 models:
   - name: "trips_geom"
     description: "Trips prepared for geometry analysis"
@@ -11,3 +21,21 @@ models:
     description: "Trip finish parking statistics by 10 m hexagons"
     config:
       materialized: "table"
+  - name: "trips_prep"
+    description: "Trips prepared for analysis"
+    config:
+      materialized: "view"
+  - name: "trips_stat"
+    description: "Overall trips statistics"
+    config:
+      materialized: "view"
+  - name: "trips_stat_daily"
+    description: "Overall trips statistics per day"
+    config:
+      materialized: "view"
+      indexes:
+        - columns: ["date"]
+  - name: "trips_users"
+    description: "Prepared trips enriched with users data"
+    config:
+      materialized: "incremental"
