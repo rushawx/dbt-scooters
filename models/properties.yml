@@ -7,6 +7,8 @@ sources:
         description: "Scooter trips"
       - name: "users"
         description: "Users of scooter service"
+      - name: "events"
+        description: "Raw user events with duplicates"
 
 models:
   - name: "trips_geom"
@@ -37,5 +39,9 @@ models:
         - columns: ["date"]
   - name: "trips_users"
     description: "Prepared trips enriched with users data"
+    config:
+      materialized: "incremental"
+  - name: "events_clean"
+    description: "User events without duplicates"
     config:
       materialized: "incremental"
